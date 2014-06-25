@@ -13,7 +13,7 @@ virtualenv:
   system_site_packages: true
 
 before_install:
-	# don't install both ATLAS and OpenBLAS
+# don't install both ATLAS and OpenBLAS
   # - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   - sudo apt-get install -qq libopenblas-dev libopenblas-base
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
