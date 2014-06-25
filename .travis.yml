@@ -19,6 +19,7 @@ before_install:
   - sudo apt-get install -qq python3-numpy python-numpy 
   - sudo apt-get install -qq python3-scipy python-scipy
   - sudo apt-get install -qq python-pandas
+  - pip install mca
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt
