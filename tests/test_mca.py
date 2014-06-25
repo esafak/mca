@@ -10,7 +10,7 @@ Tests for `mca` module.
 
 import unittest, numpy.testing, pandas
 
-from ..mca import mca, dummy
+from .mca import mca, dummy
 
 class TestMca(unittest.TestCase):
 

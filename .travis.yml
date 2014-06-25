@@ -3,10 +3,10 @@
 language: python
 
 python:
-  - "3.4"
-  - "3.3"
-  - "2.7"
-  - "2.6"
+  - 3.4
+  - 3.3
+  - 2.7
+  # - 2.6
   # - "pypy"
 
 virtualenv:
@@ -15,11 +15,11 @@ virtualenv:
 before_install:
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   - sudo apt-get install -qq libopenblas-dev libopenblas-base
-  - sudo apt-get build-dep -qq python3-numpy python-numpy
+  # - sudo apt-get build-dep -qq python3-numpy python-numpy
   - sudo apt-get install -qq python3-numpy python-numpy 
   - sudo apt-get install -qq python3-scipy python-scipy
   - sudo apt-get install -qq python-pandas
-  - pip install .
+  # - pip install .
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt
