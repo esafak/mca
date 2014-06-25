@@ -20,8 +20,8 @@ Example
 -------
 
 >>> import mca, pandas, numpy
->>>  counts = pandas.read_table('tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
->>>  print(counts.shape)
+>>> counts = pandas.read_table('tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
+>>> print(counts.shape)
 (6, 23)
 
 >>> mca_counts = mca.mca(counts.drop('oak_type', axis=1))
@@ -48,7 +48,7 @@ If Benzecri correction has been enabled (default), this is less than the the squ
 >>> print(mca_counts.s)
 >>> print(sum(mca_counts.s**2))
 	array([  9.23693800e-01,   4.47213595e-01,   3.39283916e-01,
-         1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
+         	1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
 	1.2
 
 Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can adjust the threshold by setting the TOL parameter (default: 1e-4) in the constructor. If we had not set the ``prob`` parameter in ``fs_r()`` to 1, it would have used its default value of 0.9 and we would have eliminated another two columns, leading to a dimensionality reduction ratio of 6:1.
