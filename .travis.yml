@@ -3,8 +3,8 @@
 language: python
 
 python:
-  # - 3.4
-  # - 3.3
+  - 3.4
+  - 3.3
   - "2.7_with_system_site_packages"
   - "3.2_with_system_site_packages"
   # - 2.6
@@ -15,8 +15,8 @@ python:
 
 before_install:
 # don't install both ATLAS and OpenBLAS
-  - sudo apt-get install -qq libatlas-dev libatlas-base-dev
-  # - sudo apt-get install -qq libopenblas-dev libopenblas-base
+  # - sudo apt-get install -qq libatlas-dev libatlas-base-dev
+  - sudo apt-get install -qq libopenblas-dev libopenblas-base
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
   - yes | sudo add-apt-repository ppa:chris-lea/python-numpy
   - yes | sudo add-apt-repository ppa:pythonxy/pythonxy-devel 
