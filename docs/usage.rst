@@ -2,7 +2,7 @@
 Usage
 ========
 
-To use mca in a project::
+To use mca in a project:
 
 .. code-block :: python
 	
@@ -63,7 +63,7 @@ The inertia is simply the sum of the principle inertias:
 
 	print(mca_counts.inertia, mca_counts.L.sum())
 
-Output: 
+Output:
 
 	0.74762737298514048 0.74762737298514048
 
@@ -76,7 +76,7 @@ If Benzecri correction has been enabled (default), this is less than the the squ
 
 Output:
 
-.. code-block ::
+.. code-block :: python
 
 	array([  9.23693800e-01,   4.47213595e-01,   3.39283916e-01,
          1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
@@ -101,7 +101,7 @@ Output:
 
 The result is identical to the first column of the earlier invocation of `fs_r(1)`. This holds in general; reducing `prob` or `N` simply truncates the matrix, exactly as in PCA.
 
-If you want to find the factor score of supplementary data (which has to be [conformable](http://en.wikipedia.org/wiki/Conformable_matrix)):
+If you want to find the factor score of supplementary data (which has to be `conformable <http://en.wikipedia.org/wiki/Conformable_matrix>`_):
 
 .. code-block :: python
 
