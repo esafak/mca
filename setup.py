@@ -19,7 +19,7 @@ requirements = [
 ]
 
 test_requirements = [
-   # "unittest", "numpy", "pandas"
+   "numpy", "pandas"
 ]
 
 setup(
