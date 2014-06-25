@@ -1,6 +1,14 @@
-========
+============
+Installation
+============
+
+.. code-block:
+
+	pip install --user mca
+
+=====
 Usage
-========
+=====
 
 To use mca in a project:
 
@@ -17,7 +25,6 @@ The package includes a fairly thorough set of unit tests, which users are invite
 
 Example
 -------
-
 .. code-block :: python
 
 	import mca, pandas, numpy
@@ -75,7 +82,7 @@ If Benzecri correction has been enabled (default), this is less than the the squ
 >         1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
 >	1.2
 
-Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can adjust the threshold by setting the TOL parameter (default: 1e-4) in the constructor. If we had let the `prob` parameter in `fs_r()` to 1, it would use its default value of 0.9 and we would have eliminated another two columns, leading to a dimensionality reduction of 1:6.
+Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can adjust the threshold by setting the TOL parameter (default: 1e-4) in the constructor. If we had not set the ``prob`` parameter in ``fs_r()`` to 1, it would have used its default value of 0.9 and we would have eliminated another two columns, leading to a dimensionality reduction ratio of 6:1.
 
 .. code-block :: python
 
