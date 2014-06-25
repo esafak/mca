@@ -7,11 +7,12 @@ To use mca in a project:
 .. code-block :: python
 	
 	import mca
-	mca_df = mca.mca(dataframe[, cols=None][, ncols=None][, benzecri=True])
+	mca_df = mca.mca(dataframe[, cols=None][, ncols=None][, benzecri=True][, TOL=1e-4])
 
 * ``cols``: A list of the pandas DataFrame's columns to encode and process.
 * ``ncols``: The number of factors to retain. None to retain all (default).
 * ``benzecri``: Perform Benzecri correction to shrink eigenvalues (default).
+* ``TOL``: The value below which to round eigenvalues to zero.
 
 The package includes a fairly thorough set of unit tests, which users are invited to inspect (since they will substitute for a formal help file for the time being.)
 
@@ -20,7 +21,7 @@ Example
 .. code-block :: python
 
 	import mca, pandas, numpy
-	counts = pandas.read_table('../tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
+	counts = pandas.read_table('tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
 	print(counts.shape)
 
 ::
