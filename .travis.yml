@@ -18,10 +18,11 @@ before_install:
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   # - sudo apt-get install -qq libopenblas-dev libopenblas-base
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
-  - sudo apt-get install -qq python3-numpy python-numpy 
-  - sudo apt-get install -qq python3-scipy python-scipy
+  - yes | sudo add-apt-repository ppa:chris-lea/python-numpy
   - yes | sudo add-apt-repository ppa:pythonxy/pythonxy-devel 
   - sudo apt-get update -q
+  - sudo apt-get install -qq python3-numpy python-numpy 
+  - sudo apt-get install -qq python3-scipy python-scipy
   - sudo apt-get install -qq python-pandas
   - pip install .
 
