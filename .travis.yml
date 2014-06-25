@@ -13,10 +13,13 @@ before_install:
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   - sudo apt-get install -qq libopenblas-dev libopenblas-base
   - sudo apt-get build-dep -qq python3-numpy python-numpy
-  - sudo apt-get install -qq python3-numpy python-numpy python-pandas
+  - sudo apt-get install -qq python3-numpy python-numpy 
+  - sudo apt-get install -qq python3-scipy python-scipy
+  - sudo apt-get install -qq python-pandas
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
+install: 
+  # - pip install -r requirements.txt
 
 # command to run tests, e.g. python setup.py test
 script: python setup.py test
