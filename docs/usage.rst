@@ -9,10 +9,9 @@ To use mca in a project:
 	import mca
 	mca_df = mca.mca(dataframe[, cols=None][, ncols=None][, benzecri=True])
 
-
-	cols: A list of the pandas DataFrame's columns to encode and process.
-	ncols: The number of factors to retain. None to retain all (default).
-	benzecri: Perform Benzecri correction to shrink eigenvalues (default).
+* `cols`: A list of the pandas DataFrame's columns to encode and process.
+* `ncols`: The number of factors to retain. None to retain all (default).
+* `benzecri`: Perform Benzecri correction to shrink eigenvalues (default).
 
 The package includes a fairly thorough set of unit tests, which users are invited to inspect (since they will substitute for a formal help file for the time being.)
 
@@ -99,7 +98,7 @@ Output:
 	       [ 0.93238083],
 	       [ 0.7209849 ]])
 
-The result is identical to the first column of the earlier invocation of `fs_r(1)`. This holds in general; reducing `prob` or `N` simply truncates the matrix, exactly as in PCA.
+The result is identical to the first column of the earlier invocation of ``fs_r(1)``. This holds in general; reducing ``prob`` or ``N`` simply truncates the matrix, exactly as in PCA.
 
 If you want to find the factor score of supplementary data (which has to be `conformable <http://en.wikipedia.org/wiki/Conformable_matrix>`_):
 
@@ -108,10 +107,9 @@ If you want to find the factor score of supplementary data (which has to be `con
 	new_counts = pandas.DataFrame(numpy.random.randint(0, 2, (5, len(counts.columns)-1)))
 	mca_counts.fs_r_sup(new_counts, 2)
 
-where the decrement is to account for the dropped column ('oak_types') in the original `counts` DataFrame. As before, we can decide how many columns to keep:
+where the decrement is to account for the dropped column ('``oak_types``') in the original ``counts`` DataFrame. As before, we can decide how many columns to keep:
 
 Output:
-
 .. code-block :: python
 
 	array([[ -3.33523735e-02,   2.27874988e-16],
