@@ -20,7 +20,7 @@ Example
 -------
 
 >>> import mca, pandas, numpy
->>> counts = pandas.read_table('tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
+>>> counts = pandas.read_table('data/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
 >>> print(counts.shape)
 (6, 23)
 

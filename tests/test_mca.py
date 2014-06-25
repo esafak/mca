@@ -23,9 +23,9 @@ class TestMca(unittest.TestCase):
 		# See in particular Table 2,3,4.
 
 		# first we check the eigenvalues and factor scores with Benzecri correction
-		df = pandas.read_table('burgundies.csv', skiprows=1, sep=',', index_col=0)
+		df = pandas.read_table('data/burgundies.csv', skiprows=1, sep=',', index_col=0)
 		mca_df = mca(df.drop('oak_type', axis=1), ncols = 10)
-		numpy.testing.assert_allclose([0.7004, 0.0123, 0.0003, 0], mca_df.E[:4], atol=1e-4)
+		numpy.testing.assert_allclose([0.7004, 0.0123, 0.0003], mca_df.E[:3], atol=1e-4)
 		true_fs_row = [[0.86, 0.08], [-0.71, -0.16], [-0.92, 0.08], 
 					[-0.86, 0.08], [0.92, 0.08], [0.71, -0.16]]
 		numpy.testing.assert_allclose(true_fs_row, mca_df.fs_r(N = 2), atol=1e-2)
@@ -60,7 +60,7 @@ class TestMca(unittest.TestCase):
 		# Data taken from www.utdallas.edu/~herve/abdi-AB2014_CA.pdf
 		# Correspondence Analysis, (Herve Abdi & Michel Bera, 2014)
 		# Springer Encyclopedia of Social Networks and Mining.
-		df = pandas.read_table('music_color.csv', skiprows=0, index_col=0, sep=',')
+		df = pandas.read_table('data/music_color.csv', skiprows=0, index_col=0, sep=',')
 		mca_df = mca(df, benzecri=False)
 
 		# Table 1, page 13
@@ -85,7 +85,7 @@ class TestMca(unittest.TestCase):
 		# Correspondence Analysis, (Herve Abdi & Michel Bera, 2010)
 		# SAGE Encyclopedia of Research Design. Table 4, page 16.
 
-		df = pandas.read_table('french_writers.csv', skiprows=0, index_col=0, sep=',')
+		df = pandas.read_table('data/french_writers.csv', skiprows=0, index_col=0, sep=',')
 		mca_df = mca(df, benzecri=False)
 
 		numpy.testing.assert_allclose(mca_df.c, [.2973, .5642, .1385], atol=1e-4)
@@ -116,13 +116,13 @@ class TestMca(unittest.TestCase):
 		abdi = pandas.DataFrame([216, 139, 26]).T
 		numpy.testing.assert_allclose(mca_df.fs_r_sup(abdi, 2), [[-0.0908, 0.5852]], atol=1e-4)
 
-		supp = pandas.read_table('french_writers_supp.csv', skiprows=0, index_col=0, sep=',')
+		supp = pandas.read_table('data/french_writers_supp.csv', skiprows=0, index_col=0, sep=',')
 
 		true_fs_col_sup = [[-0.0596,-0.1991,-0.4695,-0.4008],[0.2318,0.2082,-0.2976,-0.4740]]
 		numpy.testing.assert_allclose(mca_df.fs_c_sup(supp).T, true_fs_col_sup, atol=1e-3)
 
 	def test_invalid_inputs(self):
-		df = pandas.read_table('burgundies.csv', skiprows=1, sep=',')
+		df = pandas.read_table('data/burgundies.csv', skiprows=1, sep=',')
 		self.assertRaises(ValueError, mca, df.iloc[:,2:], ncols = 0)
 		self.assertRaises(ValueError, mca, df.iloc[:,2:], ncols = '')
 
