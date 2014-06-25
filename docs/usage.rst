@@ -79,7 +79,7 @@ Output:
 
 	array([  9.23693800e-01,   4.47213595e-01,   3.39283916e-01,
          1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
-    1.2
+	1.2
 
 Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can adjust the threshold by setting the TOL parameter (default: 1e-4) in the constructor. If we had let the `prob` parameter in `fs_r()` to 1, it would use its default value of 0.9 and we would have eliminated another two columns, leading to a dimensionality reduction of 1:6.
 
@@ -110,6 +110,7 @@ If you want to find the factor score of supplementary data (which has to be `con
 where the decrement is to account for the dropped column ('``oak_types``') in the original ``counts`` DataFrame. As before, we can decide how many columns to keep:
 
 Output:
+
 .. code-block :: python
 
 	array([[ -3.33523735e-02,   2.27874988e-16],
