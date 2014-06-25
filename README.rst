@@ -27,7 +27,7 @@ Installation
 Usage
 ------------------
 
-`\<docs/usage\> <docs/usage.rst>`_
+`\<docs/usage.rst\> <docs/usage.rst>`_
 
 Reference
 ---------
