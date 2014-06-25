@@ -20,7 +20,7 @@ before_install:
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
   - sudo apt-get install -qq python3-numpy python-numpy 
   - sudo apt-get install -qq python3-scipy python-scipy
-  - sudo yes | add-apt-repository ppa:pythonxy/pythonxy-devel 
+  - yes | sudo add-apt-repository ppa:pythonxy/pythonxy-devel 
   - sudo apt-get update -q
   - sudo apt-get install -qq python-pandas
   - pip install .
