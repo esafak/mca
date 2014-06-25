@@ -1,11 +1,3 @@
-============
-Installation
-============
-
-.. code-block ::
-
-	pip install --user mca
-
 =====
 Usage
 =====
