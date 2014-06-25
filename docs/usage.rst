@@ -2,7 +2,7 @@
 Installation
 ============
 
-.. code-block:
+.. code-block ::
 
 	pip install --user mca
 
@@ -98,7 +98,6 @@ Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can
 >	       [ 0.7209849 ]])
 
 The result is identical to the first column of the earlier invocation of ``fs_r(1)``. This holds in general; reducing ``prob`` or ``N`` simply truncates the matrix, exactly as in PCA.
-
 If you want to find the factor score of supplementary data (which has to be `conformable <http://en.wikipedia.org/wiki/Conformable_matrix>`_):
 
 .. code-block :: python
