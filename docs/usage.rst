@@ -4,7 +4,7 @@ Usage
 
 To use mca in a project::
 
-.. code:: python
+.. code-block :: python
 	
 	import mca
 	mca_df = mca.mca(dataframe[, cols=None][, ncols=None][, benzecri=True])
@@ -25,7 +25,9 @@ Example
 	counts = pandas.read_table('../tests/burgundies.csv', sep=',', skiprows=1, index_col=0, header=0)
 	print(counts.shape)
 
-Output: `(6, 23)`
+Output: 
+
+	(6, 23)
 
 .. code-block :: python
 
@@ -33,6 +35,8 @@ Output: `(6, 23)`
 	print(mca_counts.fs_r(1)) # 1 = 100%, meaning preserve all variance.
 
 Output:
+
+.. code-block :: python
 
 	array([[ 0.87127085,  0.11448396, -0.09250792],
 	       [-0.7209849 , -0.22896791, -0.083259  ],
@@ -49,6 +53,8 @@ The eigenvalues, or *principal inertias*, of the factors:
 
 Output:
 
+.. code-block :: python
+
 	array([ 0.71608871,  0.02621315,  0.00532552])
 
 The inertia is simply the sum of the principle inertias:
@@ -56,7 +62,6 @@ The inertia is simply the sum of the principle inertias:
 .. code-block :: python
 
 	print(mca_counts.inertia, mca_counts.L.sum())
-
 
 Output: 
 
@@ -71,6 +76,8 @@ If Benzecri correction has been enabled (default), this is less than the the squ
 
 Output:
 
+.. code-block ::
+
 	array([  9.23693800e-01,   4.47213595e-01,   3.39283916e-01,
          1.77978056e-01,   1.71329335e-16,   7.21294550e-17])
     1.2
@@ -81,8 +88,9 @@ Benzecri correction plus thresholding has eliminated 3 of the 6 columns. You can
 
 	print(mca_counts.fs_r())
 
-
 Output:
+
+.. code-block :: python
 
 	array([[ 0.87127085],
 	       [-0.7209849 ],
@@ -103,6 +111,8 @@ If you want to find the factor score of supplementary data (which has to be [con
 where the decrement is to account for the dropped column ('oak_types') in the original `counts` DataFrame. As before, we can decide how many columns to keep:
 
 Output:
+
+.. code-block :: python
 
 	array([[ -3.33523735e-02,   2.27874988e-16],
 	       [  3.13116890e-01,  -1.12938488e-01],
