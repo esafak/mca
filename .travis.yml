@@ -14,7 +14,8 @@ virtualenv:
 
 before_install:
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
-  - sudo apt-get install -qq libopenblas-dev libopenblas-base
+  - sudo apt-get install -qq libopenblas-dev 
+  # libopenblas-base
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
   - sudo apt-get install -qq python3-numpy python-numpy 
   - sudo apt-get install -qq python3-scipy python-scipy
