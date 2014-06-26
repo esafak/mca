@@ -19,7 +19,7 @@ requirements = [
 ]
 
 test_requirements = [
-   "numpy", "pandas"
+   # "numpy", "pandas"
 ]
 
 setup(
@@ -34,9 +34,10 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     install_requires=requirements,
+    download_url = 'https://github.com/esafak/mca/tarball/1.0',
     license="BSD",
     zip_safe=False,
-    keywords='mca',
+    keywords=['mca', 'statistics'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
