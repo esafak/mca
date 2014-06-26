@@ -8,14 +8,14 @@ mca
 .. image:: https://travis-ci.org/esafak/mca.png?branch=master
         :target: https://travis-ci.org/esafak/mca
 
-.. image:: https://pypip.in/d/mca/badge.png
+.. image: https://pypip.in/download/mca/badge.png
         :target: https://pypi.python.org/pypi/mca
         
-.. image:: http://img.shields.io/badge/license-BSD-red.svg
-		:target: LICENSE
+.. image:: http://img.shields.io/badge/license-BSD-red.png
+		:target: https://github.com/esafak/mca/blob/master/LICENSE
 
 
-mca is a `Multiple Correspondence Analysis <http://en.wikipedia.org/wiki/Multiple_correspondence_analysis>`_ (MCA) package for python, intended to be used with `pandas <http://pandas.pydata.org/>`_. MCA is a `feature extraction <http://en.wikipedia.org/wiki/Feature_extraction>`_ method; essentially `PCA <http://en.wikipedia.org/wiki/Principal_component_analysis>`_ for `categorical variables <http://en.wikipedia.org/wiki/Categorical_variable>`_. You can use it, for example, to cope with `multicollinearity <http://en.wikipedia.org/wiki/Multicollinearity>`_ or the `curse of dimensionality <http://en.wikipedia.org/wiki/Curse_of_dimensionality>`_ that one is apt to encounter with categorical variables with many categories.
+mca is a `Multiple Correspondence Analysis <http://en.wikipedia.org/wiki/Multiple_correspondence_analysis>`_ (MCA) package for python, intended to be used with `pandas <http://pandas.pydata.org/>`_. MCA is a `feature extraction <http://en.wikipedia.org/wiki/Feature_extraction>`_ method; essentially `PCA <http://en.wikipedia.org/wiki/Principal_component_analysis>`_ for `categorical variables <http://en.wikipedia.org/wiki/Categorical_variable>`_. You can use it, for example, to address `multicollinearity <http://en.wikipedia.org/wiki/Multicollinearity>`_ or the `curse of dimensionality <http://en.wikipedia.org/wiki/Curse_of_dimensionality>`_ with big categorical variables.
 
 Installation
 ------------
