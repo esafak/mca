@@ -27,7 +27,7 @@ Installation
 Usage
 ------------------
 
-`\<docs/usage.rst\> <docs/usage.rst>`_
+`\<docs/usage.rst\> <https://github.com/esafak/mca/blob/master/docs/usage.rst>`_
 
 Reference
 ---------
