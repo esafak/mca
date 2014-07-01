@@ -8,10 +8,10 @@ mca
 .. image:: https://travis-ci.org/esafak/mca.png?branch=master
         :target: https://travis-ci.org/esafak/mca
 
-.. image: https://pypip.in/download/mca/badge.png
+.. image:: https://pypip.in/download/mca/badge.png
         :target: https://pypi.python.org/pypi/mca
         
-.. image:: http://img.shields.io/badge/license-BSD-red.png
+.. image:: https://pypip.in/license/mca/badge.png
 		:target: https://github.com/esafak/mca/blob/master/LICENSE
 
 
