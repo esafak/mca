@@ -49,7 +49,7 @@ class mca:
 		self.D_c = numpy.diag(1/numpy.sqrt(self.c))
 
 		# another option, not pursued here, is sklearn.decomposition.TruncatedSVD
-		self.P, self.s, self.Q = scipy.linalg.svd(_mul(self.D_r, Z_c, self.D_c))
+		self.P, self.s, self.Q = numpy.linalg.svd(_mul(self.D_r, Z_c, self.D_c))
 		
 		if benzecri: self.E = numpy.array([(K/(K-1)*(_ - 1/K))**2 
 				if _ > 1/K else 0 for _ in self.s**2])
