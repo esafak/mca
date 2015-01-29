@@ -139,7 +139,7 @@ class mca:
 			numpy.apply_along_axis(lambda _: _*self.r, 0, self.F[:,:N]**2))
 
 	def cont_c(self, percent=0.9, N=None): # bug? check axis number 0 vs 1 here
-		"""Return the contribution of each row."""
+		"""Return the contribution of each column."""
 
 		if not hasattr(self, 'G'): self.fs_c(N=self.rank) # generate G
 		return numpy.apply_along_axis(lambda _: _/self.L[:N], 1, 
