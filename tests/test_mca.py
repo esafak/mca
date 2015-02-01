@@ -12,7 +12,7 @@ import unittest
 from numpy.testing import assert_allclose
 from numpy import array
 import pandas
-from mca import mca
+from mca import MCA
 
 
 class TestMca(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestMca(unittest.TestCase):
         # correction
         df = pandas.read_table('data/burgundies.csv', skiprows=1, sep=',',
                                index_col=0)
-        mca_df = mca(df.drop('oak_type', axis=1), ncols=10)
+        mca_df = MCA(df.drop('oak_type', axis=1), ncols=10)
         assert_allclose([0.7004, 0.0123, 0.0003], mca_df.E[:3], atol=1e-4)
         true_fs_row = [[0.86, 0.08], [-0.71, -0.16], [-0.92, 0.08],
                        [-0.86, 0.08], [0.92, 0.08], [0.71, -0.16]]
@@ -64,7 +64,7 @@ class TestMca(unittest.TestCase):
 
         # ... then without Benzecri correction
         assert_allclose([0.8532, 0.2, 0.1151, 0.0317],
-                        (mca(df.drop('oak_type', axis=1), ncols=10,
+                        (MCA(df.drop('oak_type', axis=1), ncols=10,
                              benzecri=False).s**2)[:4], atol=1e-4)
 
     def test_abdi_bera(self):
@@ -73,7 +73,7 @@ class TestMca(unittest.TestCase):
         # Springer Encyclopedia of Social Networks and Mining.
         df = pandas.read_table('data/music_color.csv', skiprows=0, index_col=0,
                                sep=',')
-        mca_df = mca(df, benzecri=False)
+        mca_df = MCA(df, benzecri=False)
 
         # Table 1, page 13
         assert_allclose(mca_df.r, [.121, .091, .126, .116, .096, .066, .071,
@@ -124,7 +124,7 @@ class TestMca(unittest.TestCase):
 
         df = pandas.read_table('data/french_writers.csv', skiprows=0,
                                index_col=0, sep=',')
-        mca_df = mca(df, benzecri=False)
+        mca_df = MCA(df, benzecri=False)
 
         assert_allclose(mca_df.c, [.2973, .5642, .1385], atol=1e-4)
         assert_allclose(mca_df.r, [.0189, .1393, .2522, .3966, .1094, .0835],
@@ -173,8 +173,8 @@ class TestMca(unittest.TestCase):
 
     def test_invalid_inputs(self):
         df = pandas.read_table('data/burgundies.csv', skiprows=1, sep=',')
-        self.assertRaises(ValueError, mca, df.iloc[:, 2:], ncols=0)
-        self.assertRaises(ValueError, mca, df.iloc[:, 2:], ncols='')
+        self.assertRaises(ValueError, MCA, df.iloc[:, 2:], ncols=0)
+        self.assertRaises(ValueError, MCA, df.iloc[:, 2:], ncols='')
 
 
 if __name__ == '__main__':
