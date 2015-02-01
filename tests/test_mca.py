@@ -16,8 +16,6 @@ from mca import mca
 
 
 class TestMca(unittest.TestCase):
-    def setUp(self):
-        pass
 
     def test_abdi_valentin(self):
         # Data taken from http://www.utdallas.edu/~herve/Abdi-MCA2007-pretty.pdf
@@ -178,8 +176,6 @@ class TestMca(unittest.TestCase):
         self.assertRaises(ValueError, mca, df.iloc[:, 2:], ncols=0)
         self.assertRaises(ValueError, mca, df.iloc[:, 2:], ncols='')
 
-    def tearDown(self):
-        pass
 
 if __name__ == '__main__':
     unittest.main()
