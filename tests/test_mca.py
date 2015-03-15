@@ -77,7 +77,7 @@ class TestMca(unittest.TestCase):
 
         # Table 1, page 13
         assert_allclose(mca_df.r, [.121, .091, .126, .116, .096, .066, .071,
-                                   146, .061, .106], atol=1e-3)
+                                   .146, .061, .106], atol=1e-3)
         assert_allclose(mca_df.c, [.11, .11, .11, .11, .11, .11, .11, .11, .11],
                         atol=1e-2)
 
