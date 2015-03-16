@@ -3,7 +3,7 @@
 language: python
 
 cache: 
-  - apt
+  # - apt
   - pip
 
 notifications:
