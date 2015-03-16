@@ -2,11 +2,21 @@
 
 language: python
 
+cache: 
+  - apt
+  - pip
+
+notifications:
+  email: false
+
 python:
   - 3.4
+    env: PYTHON = "3"
   - 3.3
+    env: PYTHON = "3"
   # - "2.7_with_system_site_packages"
   - "3.2_with_system_site_packages"
+    env: PYTHON = "3"  
   # - 2.6
   # - "pypy"
 
@@ -14,24 +24,25 @@ python:
   # system_site_packages: true
 
 before_install:
-# don't install both ATLAS and OpenBLAS
+  wget -O- http://neuro.debian.net/lists/precise.us-nh.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+  sudo apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
+  # don't install both ATLAS and OpenBLAS
   # - sudo apt-get install libopenblas-dev liblapack-dev
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   # - sudo apt-get install -qq libblas-dev liblapack-dev
   # - sudo apt-get install -qq libopenblas-dev libopenblas-base
   # - sudo apt-get build-dep -qq python3-numpy python-numpy
-  - yes | sudo add-apt-repository ppa:chris-lea/python-numpy
-  - yes | sudo add-apt-repository ppa:pythonxy/pythonxy-devel # pandas
-  - yes | sudo add-apt-repository ppa:pylab/stable # scipy
+  - echo | sudo add-apt-repository ppa:chris-lea/python-numpy
+  - echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel # pandas
+  - echo | sudo add-apt-repository ppa:pylab/stable # scipy
   - sudo apt-get update -q
-  - sudo apt-get install -qq python3-numpy python-numpy 
-  - sudo apt-get install -qq python3-scipy python-scipy
-  - sudo apt-get install -qq python-pandas
+  - if ["$PYTHON" = "3"]; then sudo apt-get install -qq python3-numpy python3-scipy python3-pandas; fi
+  - if ["$PYTHON" != "3"]; then sudo apt-get install -qq python-numpy python-scipy python-pandas; fi
   - sudo apt-get install -qq gfortran # in order to build pandas
   - pip install .
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
+install: pip install -r requirements.txt --use-mirrors
 
 # command to run tests, e.g. python setup.py test
 script: python setup.py test
