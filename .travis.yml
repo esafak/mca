@@ -22,7 +22,7 @@ python:
 # virtualenv:
   # system_site_packages: true
 
-install:
+before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == "3.2_with_system_site_packages" ]]; then
       echo | sudo add-apt-repository ppa:chris-lea/python-numpy;
       echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel; # pandas
@@ -36,6 +36,8 @@ install:
       conda create -p $HOME/py --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas;
       export PATH=$HOME/py/bin:$PATH;
     fi
+
+install:
   - pip install -r requirements.txt
   - pip install .
 
