@@ -51,8 +51,8 @@ class mca:
 		# another option, not pursued here, is sklearn.decomposition.TruncatedSVD
 		self.P, self.s, self.Q = numpy.linalg.svd(_mul(self.D_r, Z_c, self.D_c))
 		
-		if benzecri: self.E = numpy.array([(K/(K-1)*(_ - 1/K))**2 
-				if _ > 1/K else 0 for _ in self.s**2])
+		if benzecri: self.E = numpy.array([(K/(K - 1.)*(_ - 1. / K))**2
+				if _ > 1. / K else 0 for _ in self.s**2])
 		self.inertia = self.E.sum() if benzecri else sum(self.s**2)
 		self.rank = numpy.argmax((self.E if benzecri else self.s**2) < TOL)
 		self.L = (self.E if benzecri else self.s**2)[:self.rank]
