@@ -36,8 +36,8 @@ before_install:
   - echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel # pandas
   - echo | sudo add-apt-repository ppa:pylab/stable # scipy
   - sudo apt-get update -q
-  - if ["$PYTHON" = "3"]; then sudo apt-get install -qq python3-numpy python3-scipy python3-pandas; fi
-  - if ["$PYTHON" != "3"]; then sudo apt-get install -qq python-numpy python-scipy python-pandas; fi
+  - if [ $PYTHON = "3"]; then sudo apt-get install -qq python3-numpy python3-scipy python3-pandas; fi
+  - if [ $PYTHON != "3"]; then sudo apt-get install -qq python-numpy python-scipy python-pandas; fi
   - sudo apt-get install -qq gfortran # in order to build pandas
   - pip install .
 
