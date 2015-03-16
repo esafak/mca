@@ -12,10 +12,12 @@ notifications:
 python:
   - 3.4
   - 3.3
+  - 3.2
   # - "2.7_with_system_site_packages"
-  - "3.2_with_system_site_packages"
-  # - 2.6
-  # - "pypy"
+  # - "3.2_with_system_site_packages"
+  - 2.7
+  - 2.6
+  - "pypy"
 
 # virtualenv:
   # system_site_packages: true
