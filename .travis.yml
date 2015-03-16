@@ -22,13 +22,12 @@ python:
 
 before_install:
   - wget -O- http://neuro.debian.net/lists/precise.us-nh.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-  - echo | sudo apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
+  - sudo apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
   # don't install both ATLAS and OpenBLAS
   # - sudo apt-get install libopenblas-dev liblapack-dev
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
   # - sudo apt-get install -qq libblas-dev liblapack-dev
   # - sudo apt-get install -qq libopenblas-dev libopenblas-base
-  # - sudo apt-get build-dep -qq python3-numpy python-numpy
   - echo | sudo add-apt-repository ppa:chris-lea/python-numpy
   - echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel # pandas
   - echo | sudo add-apt-repository ppa:pylab/stable # scipy
