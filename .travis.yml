@@ -32,10 +32,14 @@ before_install:
   - echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel # pandas
   - echo | sudo add-apt-repository ppa:pylab/stable # scipy
   - sudo apt-get update -q
-  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then sudo apt-get install -qq python3-numpy python3-scipy python3-pandas; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then sudo apt-get install -qq python-numpy python-scipy python-pandas; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then
+      sudo apt-get install -qq python3-numpy python3-scipy python3-pandas python3-pandas-lib; 
+    fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then
+      sudo apt-get install -qq python-numpy python-scipy python-pandas python-pandas-lib; 
+    fi
   - sudo apt-get install -qq gfortran # in order to build pandas
-  - pip install .
+  # - pip install .
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt --use-mirrors
