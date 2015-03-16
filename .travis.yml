@@ -23,18 +23,10 @@ python:
   # system_site_packages: true
 
 before_install:
-  - if [[ $TRAVIS_PYTHON_VERSION == "3.2_with_system_site_packages" ]]; then
-      echo | sudo add-apt-repository ppa:chris-lea/python-numpy;
-      echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel; # pandas
-      echo | sudo add-apt-repository ppa:pylab/stable; # scipy
-      sudo apt-get update -q;
-      sudo apt-get install -qq python3-numpy python3-scipy python3-pandas python3-pandas-lib;
+  - if [ $TRAVIS_PYTHON_VERSION == "3.2_with_system_site_packages" ]; then
+      echo | sudo add-apt-repository ppa:chris-lea/python-numpy; echo | sudo add-apt-repository ppa:pythonxy/pythonxy-devel; echo | sudo add-apt-repository ppa:pylab/stable; sudo apt-get update -q; sudo apt-get install -qq python3-numpy python3-scipy python3-pandas python3-pandas-lib;
     else
-      sudo pip install conda;
-      sudo conda init;
-      # - sudo conda update conda --yes
-      conda create -p $HOME/py --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas;
-      export PATH=$HOME/py/bin:$PATH;
+      sudo pip install conda; sudo conda init; conda create -p $HOME/py --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas; export PATH=$HOME/py/bin:$PATH;
     fi
 
 install:
