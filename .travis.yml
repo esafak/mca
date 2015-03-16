@@ -20,12 +20,11 @@ python:
 # virtualenv:
   # system_site_packages: true
 
-before_install:
+install:
   - sudo pip install conda
   - sudo conda init
-  # - sudo conda update conda --yes
+  - sudo conda update conda --yes
   - export PATH=$HOME/py/bin:$PATH
-
-install: conda create -n $HOME/py --yes --file requirements.txt "python=$TRAVIS_PYTHON_VERSION"
+  - conda create -n $HOME/py --yes --file requirements.txt "python=$TRAVIS_PYTHON_VERSION"
 
 script: python setup.py test
