@@ -23,8 +23,8 @@ python:
 install:
   - sudo pip install conda
   - sudo conda init
-  - sudo conda update conda --yes
-  - export PATH=$HOME/py/bin:$PATH
+  # - sudo conda update conda --yes
   - conda create -n $HOME/py --yes --file requirements.txt "python=$TRAVIS_PYTHON_VERSION"
+  - export PATH=$HOME/py/bin:$PATH
 
 script: python setup.py test
