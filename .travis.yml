@@ -21,8 +21,8 @@ python:
   # system_site_packages: true
 
 before_install:
-  - wget -O- http://neuro.debian.net/lists/precise.us-nh.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-  - sudo apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
+  - wget -O- http://neuro.debian.net/lists/precise.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+  - sudo apt-key adv --recv-keys --keyserver pgp.mit.edu 2649A5A9
   # don't install both ATLAS and OpenBLAS
   # - sudo apt-get install libopenblas-dev liblapack-dev
   - sudo apt-get install -qq libatlas-dev libatlas-base-dev
