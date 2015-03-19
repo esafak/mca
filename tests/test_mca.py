@@ -63,9 +63,19 @@ class TestMca(unittest.TestCase):
         # mca_df.fs_c_sup(dummy(oak))
 
         # ... then without Benzecri correction
+        mca_df_i = MCA(df.drop('oak_type', axis=1), ncols=10, benzecri=False)
         assert_allclose([0.8532, 0.2, 0.1151, 0.0317],
-                        (MCA(df.drop('oak_type', axis=1), ncols=10,
-                             benzecri=False).s**2)[:4], atol=1e-4)
+                        (mca_df_i.s**2)[:4], atol=1e-4)
+
+        # check percentage of explained variance both with and without Benzecri
+        # and Greenacre corrections
+        true_expl_var_i = [.7110, .1667, .0959, .0264, 0., 0.]
+        true_expl_var_z = [.9823, .0173, .0004, 0., 0., 0.]
+        true_expl_var_c = [.9519, .0168, .0004, 0., 0., 0.]
+        assert_allclose(mca_df_i.expl_var(False), true_expl_var_i, atol=1e-4)
+        assert_allclose(mca_df_i.expl_var(), true_expl_var_c, atol=1e-4)
+        assert_allclose(mca_df.expl_var(False), true_expl_var_z, atol=1e-4)
+        assert_allclose(mca_df.expl_var(), true_expl_var_c, atol=1e-4)
 
     def test_abdi_bera(self):
         # Data taken from www.utdallas.edu/~herve/abdi-AB2014_CA.pdf

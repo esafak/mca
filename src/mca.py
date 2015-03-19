@@ -6,6 +6,24 @@ import pandas as pd
 import functools
 
 
+def process_df(DF, cols, ncols):
+    if cols:  # if you want us to do the dummy coding
+        K = len(cols)  # the number of categories
+        X = dummy(DF, cols)
+    else:  # if you want to dummy code it yourself or do all the cols
+        K = ncols
+        if ncols is None:  # be sure to pass K if you didn't multi-index
+            K = len(DF.columns)  # ... it with mca.dummy()
+            if not K:
+                raise ValueError("Your DataFrame has no columns.")
+        elif not isinstance(ncols, int) or ncols <= 0 or \
+                        ncols > len(DF.columns):  # if you dummy coded it yourself
+            raise ValueError("You must pass a valid number of columns.")
+        X = DF
+    J = X.shape[1]
+    return X, K, J
+
+
 def dummy(DF, cols=None):
     """Dummy code select columns of a DataFrame."""
     return pd.concat((pd.get_dummies(DF[col])
@@ -32,19 +50,7 @@ class MCA(object):
 
     def __init__(self, DF, cols=None, ncols=None, benzecri=True, TOL=1e-4):
 
-        if cols:  # if you want us to do the dummy coding
-                K = len(cols)  # the number of categories
-                X = dummy(DF, cols)
-        else:  # if you want to dummy code it yourself or do all the cols
-                K = ncols
-                if ncols is None:  # be sure to pass K if you didn't multi-index
-                        K = len(DF.columns)  # ... it with mca.dummy()
-                        if not K:
-                            raise ValueError("Your DataFrame has no columns.")
-                elif not isinstance(ncols, int) or ncols <= 0 or \
-                        ncols > len(DF.columns):  # if you dummy coded it yourself
-                        raise ValueError("You must pass a valid number of columns.")
-                X = DF
+        X, self.K, self.J = process_df(DF, cols, ncols)
         S = X.sum().sum()
         Z = X / S  # correspondence matrix
         self.r = Z.sum(axis=1)
@@ -58,12 +64,17 @@ class MCA(object):
         # another option, not pursued here, is sklearn.decomposition.TruncatedSVD
         self.P, self.s, self.Q = np.linalg.svd(_mul(self.D_r, Z_c, self.D_c))
 
-        if benzecri:
-            self.E = np.array([(K/(K-1.)*(_ - 1./K))**2
-                        if _ > 1./K else 0 for _ in self.s**2])
-        self.inertia = self.E.sum() if benzecri else sum(self.s**2)
-        self.rank = np.argmax((self.E if benzecri else self.s**2) < TOL)
-        self.L = (self.E if benzecri else self.s**2)[:self.rank]
+        self.E = None
+        E = self._benzecri() if self.cor else self.s**2
+        self.inertia = sum(E)
+        self.rank = np.argmax(E < TOL)
+        self.L = E[:self.rank]
+
+    def _benzecri(self):
+        if self.E is None:
+            self.E = np.array([(self.K/(self.K-1.)*(_ - 1./self.K))**2
+                              if _ > 1./self.K else 0 for _ in self.s**2])
+        return self.E
 
     def fs_r(self, percent=0.9, N=None):
         """Get the row factor scores (dimensionality-reduced representation),
@@ -156,6 +167,20 @@ class MCA(object):
             self.fs_c(N=self.rank)  # generate G
         return np.apply_along_axis(lambda _: _/self.L[:N], 1,
                 np.apply_along_axis(lambda _: _*self.c, 0, self.G[:, :N]**2))
+
+    def expl_var(self, greenacre=True):
+        """
+        Return proportion of explained inertia (variance) for each factor.
+
+        :param greenacre: Perform Greenacre correction (default: True)
+        """
+        if greenacre:
+            greenacre_inertia = (self.K / (self.K - 1.) * (sum(self.s**4)
+                                 - (self.J - self.K) / self.K**2.))
+            return self._benzecri() / greenacre_inertia
+        else:
+            E = self._benzecri() if self.cor else self.s**2
+            return E / sum(E)
 
     def fs_r_sup(self, DF, ncols=None):
         """Find the supplementary row factor scores.
