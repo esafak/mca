@@ -7,7 +7,7 @@ To use mca in a project:
 .. code-block :: python
 	
 	import mca
-	mca_df = mca.mca(dataframe[, cols=None][, ncols=None][, benzecri=True][, TOL=1e-4])
+	mca_df = mca.MCA(dataframe[, cols=None][, ncols=None][, benzecri=True][, TOL=1e-4])
 
 * ``cols``: A list of the pandas DataFrame's columns to encode and process.
 * ``ncols``: The number of factors to retain. None to retain all (default).
@@ -24,7 +24,7 @@ Example
 >>> print(counts.shape)
 (6, 23)
 
->>> mca_counts = mca.mca(counts.drop('oak_type', axis=1))
+>>> mca_counts = mca.MCA(counts.drop('oak_type', axis=1))
 >>> print(mca_counts.fs_r(1)) # 1 = 100%, meaning preserve all variance.
 	array([[ 0.87127085,  0.11448396, -0.09250792],
 	       [-0.7209849 , -0.22896791, -0.083259  ],
