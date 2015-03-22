@@ -38,14 +38,15 @@ def _mul(*args):
 
 class MCA(object):
     """Run MCA on selected columns of a pd DataFrame.
+    
     If the column are specified, assume that they hold
     categorical variables that need to be replaced with
     dummy indicators, otherwise process the DataFrame as is.
 
     'cols': The columns of the DataFrame to process.
-    'K': The number of columns before dummy coding. To be passed if cols isn't.
+    'ncols': The number of columns before dummy coding. To be passed if cols isn't.
     'benzecri': Perform Benzécri correction (default: True)
-    'TOL': value below which to round eigenvalues to zero
+    'TOL': value below which to round eigenvalues to zero (default: 1e-4)
     """
 
     def __init__(self, DF, cols=None, ncols=None, benzecri=True, TOL=1e-4):
@@ -168,7 +169,7 @@ class MCA(object):
         return np.apply_along_axis(lambda _: _/self.L[:N], 1,
                 np.apply_along_axis(lambda _: _*self.c, 0, self.G[:, :N]**2))
 
-    def expl_var(self, greenacre=True):
+    def expl_var(self, greenacre=True, N=None):
         """
         Return proportion of explained inertia (variance) for each factor.
 
@@ -177,12 +178,12 @@ class MCA(object):
         if greenacre:
             greenacre_inertia = (self.K / (self.K - 1.) * (sum(self.s**4)
                                  - (self.J - self.K) / self.K**2.))
-            return self._benzecri() / greenacre_inertia
+            return (self._benzecri() / greenacre_inertia)[:N]
         else:
             E = self._benzecri() if self.cor else self.s**2
-            return E / sum(E)
+            return (E / sum(E))[:N]
 
-    def fs_r_sup(self, DF, ncols=None):
+    def fs_r_sup(self, DF, N=None):
         """Find the supplementary row factor scores.
 
         ncols: The number of singular vectors to retain.
@@ -191,15 +192,15 @@ class MCA(object):
         if not hasattr(self, 'G'):
             self.fs_c(N=self.rank)  # generate G
 
-        if ncols and (not isinstance(ncols, int) or ncols <= 0):
+        if N and (not isinstance(N, int) or N <= 0):
                 raise ValueError("ncols should be a positive integer.")
         s = -np.sqrt(self.E) if self.cor else self.s
-        N = min(ncols, self.rank) if ncols else self.rank
+        N = min(N, self.rank) if N else self.rank
         S_inv = diagsvd(-1/s[:N], len(self.G.T), N)
         # S = scipy.linalg.diagsvd(s[:N], len(self.tau), N)
         return _mul(DF.div(DF.sum(axis=1), axis=0), self.G, S_inv)[:, :N]
 
-    def fs_c_sup(self, DF, ncols=None):
+    def fs_c_sup(self, DF, N=None):
         """Find the supplementary column factor scores.
 
         ncols: The number of singular vectors to retain.
@@ -208,10 +209,10 @@ class MCA(object):
         if not hasattr(self, 'F'):
             self.fs_r(N=self.rank)  # generate F
 
-        if ncols and (not isinstance(ncols, int) or ncols <= 0):
+        if N and (not isinstance(N, int) or N <= 0):
                 raise ValueError("ncols should be a positive integer.")
         s = -np.sqrt(self.E) if self.cor else self.s
-        N = min(ncols, self.rank) if ncols else self.rank
+        N = min(N, self.rank) if N else self.rank
         S_inv = diagsvd(-1/s[:N], len(self.F.T), N)
         # S = scipy.linalg.diagsvd(s[:N], len(self.tau), N)
         return _mul((DF/DF.sum()).T, self.F, S_inv)[:, :N]
