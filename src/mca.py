@@ -38,14 +38,15 @@ def _mul(*args):
 
 class MCA(object):
     """Run MCA on selected columns of a pd DataFrame.
+    
     If the column are specified, assume that they hold
     categorical variables that need to be replaced with
     dummy indicators, otherwise process the DataFrame as is.
 
     'cols': The columns of the DataFrame to process.
-    'K': The number of columns before dummy coding. To be passed if cols isn't.
+    'ncols': The number of columns before dummy coding. To be passed if cols isn't.
     'benzecri': Perform Benzécri correction (default: True)
-    'TOL': value below which to round eigenvalues to zero
+    'TOL': value below which to round eigenvalues to zero (default: 1e-4)
     """
 
     def __init__(self, DF, cols=None, ncols=None, benzecri=True, TOL=1e-4):
