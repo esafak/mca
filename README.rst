@@ -27,7 +27,7 @@ Installation
 Usage
 ------------------
 
-Please refer to the `usage notes <https://github.com/esafak/mca/blob/master/docs/usage.rst>`_ and `this illustrated ipython notebook <http://nbviewer.ipython.org/github/esafak/mca/blob/master/docs/mca-BurgundiesExample.ipynb>`.
+Please refer to the `usage notes <https://github.com/esafak/mca/blob/master/docs/usage.rst>`_ and `this illustrated ipython notebook <http://nbviewer.ipython.org/github/esafak/mca/blob/master/docs/mca-BurgundiesExample.ipynb>`_.
 
 Reference
 ---------
