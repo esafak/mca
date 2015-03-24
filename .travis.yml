@@ -33,3 +33,11 @@ install:
   - pip install .
 
 script: python setup.py test
+
+deploy:
+  provider: pypi
+  user: esafak
+  password:
+    secure: "ERTeFa4LZh+hiDqnv8Wf6qK6KNkFr+LFFsYx7bohM8iZsEDdciGcNis17r2H21WjIu2khIPUYarRKijVvvRMApVNgt4VLtuT5Z4WPVGS71vpJ5jZvVgZS/zo8MBZ8jbUAlMugdoWIxtSGRvJKZz6M2//eh3BtDhIz/gB4o1wGOg="
+  on:
+    tags: true
