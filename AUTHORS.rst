@@ -5,9 +5,9 @@ Credits
 Development Lead
 ----------------
 
-* Emre Safak <misteremre@yahoo.com>
+* `Emre Safak <https://github.com/esafak>`_
 
 Contributors
 ------------
 
-None yet. Why not be the first?
+* `Jakub Stejskal <https://github.com/jakub-stejskal>`_
