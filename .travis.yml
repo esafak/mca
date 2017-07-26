@@ -10,12 +10,11 @@ notifications:
   email: false
 
 python:
-  - 3.4
-  - 3.3
+  - 3.6
+  - 3.5
   # - "2.7_with_system_site_packages"
   - "3.2_with_system_site_packages"
   - 2.7
-  - 2.6
   # - "pypy"
 
 # virtualenv:

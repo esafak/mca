@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from functools import reduce
+from pandas import concat, get_dummies
 from scipy.linalg import diagsvd
-import numpy as np
-import pandas as pd
-import functools
-
+from numpy import apply_along_axis, argmax, array, cumsum, diag, dot, finfo, flatnonzero, int64, outer, sqrt
+from numpy.linalg import norm, svd
 
 def process_df(DF, cols, ncols):
     if cols:  # if you want us to do the dummy coding
@@ -26,14 +26,14 @@ def process_df(DF, cols, ncols):
 
 def dummy(DF, cols=None):
     """Dummy code select columns of a DataFrame."""
-    return pd.concat((pd.get_dummies(DF[col])
+    return concat((get_dummies(DF[col])
         for col in (DF.columns if cols is None else cols)),
         axis=1, keys=DF.columns)
 
 
 def _mul(*args):
     """An internal method to multiply matrices."""
-    return functools.reduce(np.dot, args)
+    return reduce(dot, args)
 
 
 class MCA(object):
@@ -58,22 +58,23 @@ class MCA(object):
         self.c = Z.sum()
         self._numitems = len(DF)
         self.cor = benzecri
-        self.D_r = np.diag(1/np.sqrt(self.r))
-        Z_c = Z - np.outer(self.r, self.c)  # standardized residuals matrix
-        self.D_c = np.diag(1/np.sqrt(self.c))
+        self.D_r = diag(1/sqrt(self.r))
+        Z_c = Z - outer(self.r, self.c)  # standardized residuals matrix
+        eps = finfo(float).eps  # avoid division-by-zero
+        self.D_c = diag(1/(eps + sqrt(self.c)))
 
         # another option, not pursued here, is sklearn.decomposition.TruncatedSVD
-        self.P, self.s, self.Q = np.linalg.svd(_mul(self.D_r, Z_c, self.D_c))
+        self.P, self.s, self.Q = svd(_mul(self.D_r, Z_c, self.D_c))
 
         self.E = None
         E = self._benzecri() if self.cor else self.s**2
         self.inertia = sum(E)
-        self.rank = np.argmax(E < TOL)
+        self.rank = argmax(E < TOL)
         self.L = E[:self.rank]
 
     def _benzecri(self):
         if self.E is None:
-            self.E = np.array([(self.K/(self.K-1.)*(_ - 1./self.K))**2
+            self.E = array([(self.K/(self.K-1.)*(_ - 1./self.K))**2
                               if _ > 1./self.K else 0 for _ in self.s**2])
         return self.E
 
@@ -90,17 +91,17 @@ class MCA(object):
         if not 0 <= percent <= 1:
                 raise ValueError("Percent should be a real number between 0 and 1.")
         if N:
-                if not isinstance(N, (int, np.int64)) or N <= 0:
+                if not isinstance(N, (int, int64)) or N <= 0:
                         raise ValueError("N should be a positive integer.")
                 N = min(N, self.rank)
-                # S = np.zeros((self._numitems, N))
+                # S = zeros((self._numitems, N))
         # else:
-        self.k = 1 + np.flatnonzero(np.cumsum(self.L) >= sum(self.L)*percent)[0]
-        #  S = np.zeros((self._numitems, self.k))
+        self.k = 1 + flatnonzero(cumsum(self.L) >= sum(self.L)*percent)[0]
+        #  S = zeros((self._numitems, self.k))
         # the sign of the square root can be either way; singular value vs. eigenvalue
-        # np.fill_diagonal(S, -np.sqrt(self.E) if self.cor else self.s)
+        # fill_diagonal(S, -sqrt(self.E) if self.cor else self.s)
         num2ret = N if N else self.k
-        s = -np.sqrt(self.L) if self.cor else self.s
+        s = -sqrt(self.L) if self.cor else self.s
         S = diagsvd(s[:num2ret], self._numitems, num2ret)
         self.F = _mul(self.D_r, self.P, S)
         return self.F
@@ -118,17 +119,17 @@ class MCA(object):
         if not 0 <= percent <= 1:
                 raise ValueError("Percent should be a real number between 0 and 1.")
         if N:
-                if not isinstance(N, (int, np.int64)) or N <= 0:
+                if not isinstance(N, (int, int64)) or N <= 0:
                         raise ValueError("N should be a positive integer.")
                 N = min(N, self.rank)  # maybe we should notify the user?
-                # S = np.zeros((self._numitems, N))
+                # S = zeros((self._numitems, N))
         # else:
-        self.k = 1 + np.flatnonzero(np.cumsum(self.L) >= sum(self.L)*percent)[0]
-        #  S = np.zeros((self._numitems, self.k))
+        self.k = 1 + flatnonzero(cumsum(self.L) >= sum(self.L)*percent)[0]
+        #  S = zeros((self._numitems, self.k))
         # the sign of the square root can be either way; singular value vs. eigenvalue
-        # np.fill_diagonal(S, -np.sqrt(self.E) if self.cor else self.s)
+        # fill_diagonal(S, -sqrt(self.E) if self.cor else self.s)
         num2ret = N if N else self.k
-        s = -np.sqrt(self.L) if self.cor else self.s
+        s = -sqrt(self.L) if self.cor else self.s
         S = diagsvd(s[:num2ret], len(self.Q), num2ret)
         self.G = _mul(self.D_c, self.Q.T, S)  # important! note the transpose on Q
         return self.G
@@ -138,36 +139,36 @@ class MCA(object):
 
         if not hasattr(self, 'F') or self.F.shape[1] < self.rank:
                 self.fs_r(N=self.rank)  # generate F
-        self.dr = np.linalg.norm(self.F, axis=1)**2
-        # cheaper than np.diag(self.F.dot(self.F.T))?
+        self.dr = norm(self.F, axis=1)**2
+        # cheaper than diag(self.F.dot(self.F.T))?
 
-        return np.apply_along_axis(lambda _: _/self.dr, 0, self.F[:, :N]**2)
+        return apply_along_axis(lambda _: _/self.dr, 0, self.F[:, :N]**2)
 
     def cos_c(self, N=None):  # percent=0.9,
         """Return the squared cosines for each column."""
 
         if not hasattr(self, 'G') or self.G.shape[1] < self.rank:
                 self.fs_c(N=self.rank)  # generate
-        self.dc = np.linalg.norm(self.G, axis=1)**2
-        # cheaper than np.diag(self.G.dot(self.G.T))?
+        self.dc = norm(self.G, axis=1)**2
+        # cheaper than diag(self.G.dot(self.G.T))?
 
-        return np.apply_along_axis(lambda _: _/self.dc, 0, self.G[:, :N]**2)
+        return apply_along_axis(lambda _: _/self.dc, 0, self.G[:, :N]**2)
 
     def cont_r(self, percent=0.9, N=None):
         """Return the contribution of each row."""
 
         if not hasattr(self, 'F'):
             self.fs_r(N=self.rank)  # generate F
-        return np.apply_along_axis(lambda _: _/self.L[:N], 1,
-                np.apply_along_axis(lambda _: _*self.r, 0, self.F[:, :N]**2))
+        return apply_along_axis(lambda _: _/self.L[:N], 1,
+               apply_along_axis(lambda _: _*self.r, 0, self.F[:, :N]**2))
 
     def cont_c(self, percent=0.9, N=None):  # bug? check axis number 0 vs 1 here
         """Return the contribution of each column."""
 
         if not hasattr(self, 'G'):
             self.fs_c(N=self.rank)  # generate G
-        return np.apply_along_axis(lambda _: _/self.L[:N], 1,
-                np.apply_along_axis(lambda _: _*self.c, 0, self.G[:, :N]**2))
+        return apply_along_axis(lambda _: _/self.L[:N], 1,
+               apply_along_axis(lambda _: _*self.c, 0, self.G[:, :N]**2))
 
     def expl_var(self, greenacre=True, N=None):
         """
@@ -194,7 +195,7 @@ class MCA(object):
 
         if N and (not isinstance(N, int) or N <= 0):
                 raise ValueError("ncols should be a positive integer.")
-        s = -np.sqrt(self.E) if self.cor else self.s
+        s = -sqrt(self.E) if self.cor else self.s
         N = min(N, self.rank) if N else self.rank
         S_inv = diagsvd(-1/s[:N], len(self.G.T), N)
         # S = scipy.linalg.diagsvd(s[:N], len(self.tau), N)
@@ -211,7 +212,7 @@ class MCA(object):
 
         if N and (not isinstance(N, int) or N <= 0):
                 raise ValueError("ncols should be a positive integer.")
-        s = -np.sqrt(self.E) if self.cor else self.s
+        s = -sqrt(self.E) if self.cor else self.s
         N = min(N, self.rank) if N else self.rank
         S_inv = diagsvd(-1/s[:N], len(self.F.T), N)
         # S = scipy.linalg.diagsvd(s[:N], len(self.tau), N)
