@@ -9,3 +9,5 @@ History
 	More documentation, in the form of an ipython notebook. Fixed bug #2 affecting python 2.x
 * **1.02** (2017-07-29)
 	Fixed division-by-zero bug (issue #14)
+* **1.03** (2018-01-10)	
+	Added sparse matrix support

@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
-
+import os, sys
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
 
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
@@ -24,7 +21,7 @@ test_requirements = [
 
 setup(
     name='mca',
-    version='1.0.2',
+    version='1.0.3',
     description='Multiple correspondence analysis with pandas',
     long_description=readme + '\n\n' + history,
     author='Emre Safak',

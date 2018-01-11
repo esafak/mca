@@ -3,40 +3,39 @@
 language: python
 
 cache: 
-  - apt
-  - pip
+    - apt
+    - pip
 
 notifications:
-  email: false
+    email: false
 
 python:
-  - 3.6
-  - 3.5
-  # - "2.7_with_system_site_packages"
-  - "3.2_with_system_site_packages"
-  - 2.7
-  # - "pypy"
+    - 3.6
+    - 3.5
+    - 2.7
+    # - "pypy"
+    # - "pypy3"
 
 # virtualenv:
-  # system_site_packages: true
+#   system_site_packages: true
 
 before_install:
-  - if [ $TRAVIS_PYTHON_VERSION == "3.2_with_system_site_packages" ]; then
-      wget -O- http://neuro.debian.net/lists/precise.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list; sudo apt-key adv --recv-keys --keyserver pool.sks-keyservers.net 2649A5A9; echo | sudo add-apt-repository ppa:chris-lea/python-numpy; echo | sudo add-apt-repository ppa:pylab/stable; sudo apt-get update -q; sudo apt-get install -qq python3-numpy python3-scipy python3-pandas python3-pandas-lib;
-    else
-      sudo pip install conda; sudo conda init; conda create -p $HOME/py --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas; export PATH=$HOME/py/bin:$PATH;
-    fi
+    # - if [ $TRAVIS_PYTHON_VERSION == "3.2_with_system_site_packages" ]; then
+    #     wget -O- http://neuro.debian.net/lists/precise.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list; sudo apt-key adv --recv-keys --keyserver pool.sks-keyservers.net 2649A5A9; echo | sudo add-apt-repository ppa:chris-lea/python-numpy; echo | sudo add-apt-repository ppa:pylab/stable; sudo apt-get update -q; sudo apt-get install -qq python3-numpy python3-scipy python3-pandas python3-pandas-lib;
+    #   else
+    sudo pip install conda; sudo conda init; conda create -p $HOME/py --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy pandas; export PATH=$HOME/py/bin:$PATH;
+    # fi
 
 install:
-  - pip install -r requirements.txt
-  - pip install .
+    - pip install -r requirements.txt
+    - pip install .
 
 script: python setup.py test
 
 deploy:
-  provider: pypi
-  user: esafak
-  password:
-    secure: "ERTeFa4LZh+hiDqnv8Wf6qK6KNkFr+LFFsYx7bohM8iZsEDdciGcNis17r2H21WjIu2khIPUYarRKijVvvRMApVNgt4VLtuT5Z4WPVGS71vpJ5jZvVgZS/zo8MBZ8jbUAlMugdoWIxtSGRvJKZz6M2//eh3BtDhIz/gB4o1wGOg="
-  on:
-    tags: true
+    provider: pypi
+    user: esafak
+    password:
+        secure: "ERTeFa4LZh+hiDqnv8Wf6qK6KNkFr+LFFsYx7bohM8iZsEDdciGcNis17r2H21WjIu2khIPUYarRKijVvvRMApVNgt4VLtuT5Z4WPVGS71vpJ5jZvVgZS/zo8MBZ8jbUAlMugdoWIxtSGRvJKZz6M2//eh3BtDhIz/gB4o1wGOg="
+    on:
+        tags: true
