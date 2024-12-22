@@ -77,7 +77,7 @@ class MCA(object):
 			self._numitems = min(product.shape)-1
 		else:
 			self._numitems = len(DF)
-			self.P, self.s, self.Q = svd(product)
+			self.P, self.s, self.Q = svd(product, full_matrices=False)
 
 		self.E = None
 		E = self._benzecri() if self.cor else self.s**2
