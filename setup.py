@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='mca',
-    version='1.0.3',
+    version='1.0.4',
     description='Multiple correspondence analysis with pandas',
     long_description=readme + '\n\n' + history,
     author='Emre Safak',
