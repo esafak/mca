@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.13"  # Specify the Python version required for your project
+        python-version: 3.13
 
     - name: Install dependencies
       run: |
@@ -27,4 +27,6 @@ jobs:
       run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
 
     - name: Run test_mca.py
-      run: python tests/test_mca.py
+      run: |
+        cd $(pwd)
+        python tests/test_mca.py
