@@ -109,13 +109,15 @@ class MCA(object):
 				raise ValueError("N should be a positive integer.")
 			N = min(N, self.rank)
 		self.k = 1 + flatnonzero(cumsum(self.L) >= sum(self.L)*percent)[0]
-		#  S = zeros((self._numitems, self.k))
-		# the sign of the square root can be either way; singular value vs. eigenvalue
-		# fill_diagonal(S, -sqrt(self.E) if self.cor else self.s)
 		num2ret = N if N else self.k
 		s = -sqrt(self.L) if self.cor else self.s
-		S = diagsvd(s[:num2ret], self._numitems, num2ret)
-		self.F = self.D_r.dot(self.P).dot(S)
+
+		# Only use the first num2ret columns of P
+		P_subset = self.P[:, :num2ret]
+		# Create diagonal matrix with appropriate dimensions
+		S = diagsvd(s[:num2ret], num2ret, num2ret)
+
+		self.F = self.D_r.dot(P_subset).dot(S)
 		return self.F
 
 	def fs_c(self, percent=0.9, N=None):
@@ -133,17 +135,17 @@ class MCA(object):
 		if N:
 			if not isinstance(N, (int, int64)) or N <= 0:
 				raise ValueError("N should be a positive integer.")
-			N = min(N, self.rank)  # maybe we should notify the user?
-			# S = zeros((self._numitems, N))
-		# else:
+			N = min(N, self.rank)
 		self.k = 1 + flatnonzero(cumsum(self.L) >= sum(self.L)*percent)[0]
-		#  S = zeros((self._numitems, self.k))
-		# the sign of the square root can be either way; singular value vs. eigenvalue
-		# fill_diagonal(S, -sqrt(self.E) if self.cor else self.s)
 		num2ret = N if N else self.k
 		s = -sqrt(self.L) if self.cor else self.s
-		S = diagsvd(s[:num2ret], len(self.Q), num2ret)
-		self.G = _mul(self.D_c, self.Q.T, S)  # important! note the transpose on Q
+
+		# Only use the first num2ret rows of Q
+		Q_subset = self.Q[:num2ret, :]
+		# Create diagonal matrix with appropriate dimensions
+		S = diagsvd(s[:num2ret], num2ret, num2ret)
+
+		self.G = _mul(self.D_c, Q_subset.T, S)  # important! note the transpose on Q
 		return self.G
 
 	def cos_r(self, N=None):  # percent=0.9
