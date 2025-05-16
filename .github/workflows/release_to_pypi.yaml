@@ -8,6 +8,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
+      contents: write  # Needed for creating GitHub releases
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
