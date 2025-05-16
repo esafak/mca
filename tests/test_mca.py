@@ -188,9 +188,9 @@ class TestMca(TestCase):
 		mca2 = MCA(df, sparse=True)
 		assert_allclose(mca1.s[:-1], mca2.s, atol=1e-12)
 		for row1, row2 in zip(mca1.P.T, mca2.P.T):
-		 	assert_allclose(row1, row2 if sign(row1[0])*sign(row2[0]) > 0 else -row2, atol=1e-12) 
+			assert_allclose(row1, row2 if sign(row1[0])*sign(row2[0]) > 0 else -row2, atol=1e-12)
 		for row1, row2 in zip(mca1.Q, mca2.Q):
-		 	assert_allclose(row1, row2 if sign(row1[0])*sign(row2[0]) > 0 else -row2, atol=1e-12) 
+			assert_allclose(row1, row2 if sign(row1[0])*sign(row2[0]) > 0 else -row2, atol=1e-12)
 
 
 if __name__ == '__main__':
