@@ -12,4 +12,4 @@ History
 * **1.03** (2018-01-10)	
 	Added sparse matrix support
 * **1.04** (2025-05-15)
-    Improved SVD efficiency (issue #23)
+	Improved SVD efficiency (issue #23)
