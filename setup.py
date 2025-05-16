@@ -31,12 +31,12 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     install_requires=requirements,
-    license="BSD",
+    license = "MIT AND (Apache-2.0 OR BSD-2-Clause)",
     zip_safe=False,
     keywords=['mca', 'statistics'],
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers'
+        'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
