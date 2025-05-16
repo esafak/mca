@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, sys
-
 try:
     from setuptools import setup
 except ImportError:
@@ -24,6 +22,7 @@ setup(
     version='1.0.4',
     description='Multiple correspondence analysis with pandas',
     long_description=readme + '\n\n' + history,
+    long_description_content_type='text/x-rst',
     author='Emre Safak',
     author_email='misteremre@yahoo.com',
     url='https://github.com/esafak/mca',
@@ -36,8 +35,9 @@ setup(
     zip_safe=False,
     keywords=['mca', 'statistics'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers'
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
         'Topic :: Scientific/Engineering :: Information Analysis',
@@ -45,9 +45,6 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements
