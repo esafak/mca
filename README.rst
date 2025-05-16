@@ -26,4 +26,4 @@ References
 ----------
 
 * Michael Greenacre, Jörg Blasius (2006). `Multiple Correspondence Analysis and Related Methods <http://www.crcpress.com/product/isbn/9781584886280>`_, CRC Press. ISBN 1584886285.
-* François Husson, `Multiple Correspondence Analysis <https://www.youtube.com/playlist?list=PLnZgp6epRBbTVjKd_-KPhaGWLE7K7InL6>`_, Youtube
+* François Husson, `Multiple Correspondence Analysis Youtube Playlist <https://www.youtube.com/playlist?list=PLnZgp6epRBbTVjKd_-KPhaGWLE7K7InL6>`_, Youtube
