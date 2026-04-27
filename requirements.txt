@@ -1,4 +1,4 @@
 wheel>=0.45.1
 pandas>=3.0.2
-numpy>1.7.2
+numpy>=2.4.4
 scipy>=1.17.1
